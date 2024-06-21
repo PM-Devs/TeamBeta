@@ -18,7 +18,7 @@ app.use('/users', userRoutes);
 // Set the view engine
 app.set('view engine', 'ejs');
 app.get("/",async (req,res)=>{
-res.send({"Message";"hello Ghana!. \n Greetings from BootCode!!"})
+res.send({"Message":"hello Ghana!. \n Greetings from BootCode!!"})
 });
 // Start the server
 const PORT = process.env.PORT || 3000;
