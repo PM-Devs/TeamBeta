@@ -14,6 +14,11 @@ router.post('/users', [
     check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
     check('role').isIn(['Student', 'Supervisor', 'Admin']).withMessage('Role must be one of Student, Supervisor, or Admin')
 ], validationMiddleware, userController.createUser);
+// Login route
+router.post('/users/login', [
+    check('email').isEmail().withMessage('Invalid email address'),
+    check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+], validationMiddleware, userController.loginUser);
 // Get all users
 router.get('/users', authMiddleware, userController.getAllUsers);
 

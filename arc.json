@@ -1,0 +1,174 @@
+{
+    "name": "Final Year Project Management System",
+    "components": [
+      {
+        "name": "Database",
+        "type": "MongoDB",
+        "description": "Stores all application data",
+        "entities": [
+          "User",
+          "Team",
+          "TeamMember",
+          "Chat",
+          "File",
+          "FileVersion",
+          "Task"
+        ]
+      },
+      {
+        "name": "Server",
+        "type": "Node.js",
+        "description": "Handles requests and serves responses",
+        "components": [
+          {
+            "name": "Middleware",
+            "components": [
+              {
+                "name": "Authentication Middleware",
+                "type": "authMiddleware.js",
+                "description": "Validates authentication tokens"
+              },
+              {
+                "name": "Validation Middleware",
+                "type": "validationMiddleware.js",
+                "description": "Validates request data using express-validator"
+              },
+              {
+                "name": "Error Handling Middleware",
+                "type": "errorMiddleware.js",
+                "description": "Handles errors globally"
+              },
+              {
+                "name": "CORS Middleware",
+                "type": "cors",
+                "description": "Enables CORS for cross-origin requests"
+              }
+            ]
+          },
+          {
+            "name": "Routes",
+            "components": [
+              {
+                "name": "User Routes",
+                "type": "userRoutes.js",
+                "description": "Handles user-related API endpoints"
+              },
+              {
+                "name": "Team Routes",
+                "type": "teamRoutes.js",
+                "description": "Handles team-related API endpoints"
+              },
+              {
+                "name": "Team Member Routes",
+                "type": "teamMemberRoutes.js",
+                "description": "Handles team member-related API endpoints"
+              },
+              {
+                "name": "Chat Routes",
+                "type": "chatRoutes.js",
+                "description": "Handles chat-related API endpoints"
+              },
+              {
+                "name": "File Routes",
+                "type": "fileRoutes.js",
+                "description": "Handles file-related API endpoints"
+              },
+              {
+                "name": "File Version Routes",
+                "type": "fileVersionRoutes.js",
+                "description": "Handles file version-related API endpoints"
+              },
+              {
+                "name": "Task Routes",
+                "type": "taskRoutes.js",
+                "description": "Handles task-related API endpoints"
+              }
+            ]
+          },
+          {
+            "name": "Controllers",
+            "components": [
+              {
+                "name": "User Controller",
+                "type": "userController.js",
+                "description": "Contains logic for user operations"
+              },
+              {
+                "name": "Team Controller",
+                "type": "teamController.js",
+                "description": "Contains logic for team operations"
+              },
+              {
+                "name": "Team Member Controller",
+                "type": "teamMemberController.js",
+                "description": "Contains logic for team member operations"
+              },
+              {
+                "name": "Chat Controller",
+                "type": "chatController.js",
+                "description": "Contains logic for chat operations"
+              },
+              {
+                "name": "File Controller",
+                "type": "fileController.js",
+                "description": "Contains logic for file operations"
+              },
+              {
+                "name": "File Version Controller",
+                "type": "fileVersionController.js",
+                "description": "Contains logic for file version operations"
+              },
+              {
+                "name": "Task Controller",
+                "type": "taskController.js",
+                "description": "Contains logic for task operations"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Client",
+        "type": "Web Application",
+        "description": "User interface for interacting with the system"
+      }
+    ],
+    "dataFlow": [
+      {
+        "source": "Client",
+        "target": "Server",
+        "description": "Client sends requests to the server"
+      },
+      {
+        "source": "Server",
+        "target": "Middleware",
+        "description": "Server processes requests through middleware"
+      },
+      {
+        "source": "Middleware",
+        "target": "Routes",
+        "description": "Middleware validates and forwards requests to appropriate routes"
+      },
+      {
+        "source": "Routes",
+        "target": "Controllers",
+        "description": "Routes invoke controller logic"
+      },
+      {
+        "source": "Controllers",
+        "target": "Database",
+        "description": "Controllers interact with the database"
+      },
+      {
+        "source": "Database",
+        "target": "Controllers",
+        "description": "Database returns data to controllers"
+      },
+      {
+        "source": "Controllers",
+        "target": "Client",
+        "description": "Controllers send responses back to the client through the server"
+      }
+    ]
+  }
+  
