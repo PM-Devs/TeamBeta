@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const fileController = require('../controllers/fileController');
+const fileController = require('../controllers/fileController.cjs');
 const authMiddleware = require('../middleware/authMiddleware');
 const validationMiddleware = require('../middleware/validationMiddleware');
 const { check } = require('express-validator');
