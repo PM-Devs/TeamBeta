@@ -1,45 +1,41 @@
 const express = require('express');
-const cors = require('cors');
-const app = express();
-const port = process.env.PORT || 3000;
-const errorMiddleware = require('./middleware/errorMiddleware');
-const connectDB = require('./config/db');
-
-// Middleware
-app.use(express.json());
-// CORS middleware
-app.use(cors());
-
-// Routes
+const connectDB = require('./config/db'); // Import your db connection
 const userRoutes = require('./routes/userRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const teamMemberRoutes = require('./routes/teamMemberRoutes');
 const chatRoutes = require('./routes/chatRoutes');
-const fileRoutes = require('./routes/fileRoutes.js');
+const fileRoutes = require('./routes/fileRoutes');
 const fileVersionRoutes = require('./routes/fileVersionRoutes');
-const taskRoutes = require('./routes/taskRoutes');
-const summarizeAndImproveRoutes = require('./routes/summarizeAndImproveRoutes');
+const taskRoutes = require('./routes/taskRoutes.js');
+const errorMiddleware = require('./middelware/errorMiddleware.js');
+const cors = require('cors');
 
-// Use routes
-app.use('/api/users', userRoutes);
-app.use('/api/teams', teamRoutes);
-app.use('/api/team-members', teamMemberRoutes);
-app.use('/api/chats', chatRoutes);
-app.use('/api/files', fileRoutes);
-app.use('/api/file-versions', fileVersionRoutes);
-app.use('/api/tasks', taskRoutes);
-app.use('/api/summarize', summarizeAndImproveRoutes);
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Middleware
+app.use(express.json());
+app.use(cors());
+
+// Routes
+app.use(userRoutes);
+app.use(teamRoutes);
+app.use(teamMemberRoutes);
+app.use(chatRoutes);
+app.use(fileRoutes);
+app.use(fileVersionRoutes);
+app.use(taskRoutes);
 
 // Error handling middleware
 app.use(errorMiddleware);
 
+// Connect to MongoDB and start server
 connectDB()
-  .then(() => {
-    // Start the server once MongoDB is connected
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
+        });
+    })
+    .catch(error => {
+        console.error('Error connecting to MongoDB:', error.message);
     });
-  })
-  .catch(error => {
-    console.error('Error connecting to MongoDB:', error.message);
-  });

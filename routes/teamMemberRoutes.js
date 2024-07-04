@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const teamMemberController = require('../controllers/teamMemberController.cjs');
-const authMiddleware = require('../middleware/authMiddleware');
-const validationMiddleware = require('../middleware/validationMiddleware');
+const teamMemberController = require("../controllers/teamMemberController.js");
+const authMiddleware = require("../middelware/authMiddleware.js");
+const validationMiddleware = require("../middelware/validationMiddleware.js");
 const { check } = require('express-validator');
 
 // Add a team member
