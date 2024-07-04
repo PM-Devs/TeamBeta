@@ -1,0 +1,81 @@
+{
+    "entities": {
+      "User": {
+        "id": "string",
+        "email": "string",
+        "password": "string",
+        "token": "string"
+      },
+      "Team": {
+        "id": "string",
+        "name": "string",
+        "members": ["User"]
+      },
+      "TeamMember": {
+        "id": "string",
+        "userId": "User.id",
+        "teamId": "Team.id",
+        "role": "string"
+      },
+      "Chat": {
+        "id": "string",
+        "message": "string",
+        "teamId": "Team.id",
+        "senderId": "User.id",
+        "timestamp": "string"
+      },
+      "File": {
+        "id": "string",
+        "name": "string",
+        "teamId": "Team.id",
+        "versions": ["FileVersion"]
+      },
+      "FileVersion": {
+        "id": "string",
+        "fileId": "File.id",
+        "version": "string",
+        "content": "string",
+        "timestamp": "string"
+      },
+      "Task": {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "teamId": "Team.id",
+        "assigneeId": "User.id",
+        "status": "string",
+        "dueDate": "string"
+      }
+    },
+    "relationships": {
+      "User-Team": {
+        "type": "many-to-many",
+        "entities": ["User", "Team"]
+      },
+      "Team-Member": {
+        "type": "one-to-many",
+        "entities": ["Team", "TeamMember"]
+      },
+      "Team-Chat": {
+        "type": "one-to-many",
+        "entities": ["Team", "Chat"]
+      },
+      "Team-File": {
+        "type": "one-to-many",
+        "entities": ["Team", "File"]
+      },
+      "File-FileVersion": {
+        "type": "one-to-many",
+        "entities": ["File", "FileVersion"]
+      },
+      "Team-Task": {
+        "type": "one-to-many",
+        "entities": ["Team", "Task"]
+      },
+      "User-Task": {
+        "type": "one-to-many",
+        "entities": ["User", "Task"]
+      }
+    }
+  }
+  
